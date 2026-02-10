@@ -1,0 +1,18 @@
+/* styles.css */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    display: flex;        /* Hace del body un contenedor flex */
+    flex-direction: column; /* Dirección vertical */
+    min-height: 100vh;    /* Mínimo 100% de la altura de la ventana */
+    margin: 0;            /* Elimina márgenes por defecto */
+}
+
+/* Hace que el contenido principal ocupe el espacio restante */
+main {
+    flex: 1;              /* Se expande para llenar el espacio */
+}
+
+footer {
+    font-size: 0.9rem;
+    /* No necesitas más estilos aquí */
+}

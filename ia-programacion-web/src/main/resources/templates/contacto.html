@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout}">
+
+<section th:fragment="content">
+    <h2>Contacto</h2>
+
+    <p>¿Quieres contactar conmigo para proyectos o colaboración?</p>
+
+    <form>
+        <label>Nombre</label><br>
+        <input type="text"><br><br>
+
+        <label>Email</label><br>
+        <input type="email"><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+
+</html>
