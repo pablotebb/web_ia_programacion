@@ -1,4 +1,3 @@
-/* styles.css */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont;
     display: flex;        /* Hace del body un contenedor flex */
@@ -15,4 +14,45 @@ main {
 footer {
     font-size: 0.9rem;
     /* No necesitas más estilos aquí */
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #1A73E8, #174EA6);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 4rem;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+/* SECCIONES */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* CARDS */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card h5 {
+    font-weight: 600;
 }
