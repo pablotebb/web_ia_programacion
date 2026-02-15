@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout">
+<body>
+
+
+<section th:fragment="content">
+<h2 class="section-title">Nuevo artículo</h2>
+
+<form th:action="@{/blog}" th:object="${article}" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Título</label>
+        <input type="text" th:field="*{title}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Contenido</label>
+        <textarea th:field="*{content}" class="form-control" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear artículo</button>
+    <a href="/blog" class="btn btn-secondary ms-2">Cancelar</a>
+
+</form>
+</section>
+
+</body>
+</html>
