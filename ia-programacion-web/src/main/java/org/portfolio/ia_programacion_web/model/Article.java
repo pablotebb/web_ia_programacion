@@ -15,6 +15,11 @@ public class Article {
 
     private String content;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
     // Constructor vacío (OBLIGATORIO para JPA)
     public Article() {
     }

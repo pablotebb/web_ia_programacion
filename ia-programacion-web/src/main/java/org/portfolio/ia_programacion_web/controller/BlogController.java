@@ -7,10 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-/* import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
- */
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -47,6 +43,32 @@ public class BlogController {
     @PostMapping("/blog")
     public String createArticle(@ModelAttribute Article article) {
         articleRepository.save(article);
+        return "redirect:/blog";
+    }
+
+    @GetMapping("/blog/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Artículo no encontrado"));
+
+        model.addAttribute("article", article);
+        return "article-form";
+    }
+
+    @PostMapping("/blog/update/{id}")
+    public String updateArticle(@PathVariable Long id,
+                                @ModelAttribute Article article) {
+
+        article.setId(id);
+        articleRepository.save(article);
+
+        return "redirect:/blog";
+    }
+
+    @GetMapping("/blog/delete/{id}")
+    public String deleteArticle(@PathVariable Long id) {
+        articleRepository.deleteById(id);
         return "redirect:/blog";
     }
 

@@ -14,18 +14,31 @@
 
 
 <div class="list-group">
+
     <div class="list-group-item mb-3"
-         th:each="article : ${articles}">
+        th:each="article : ${articles}">
 
         <h5>
             <a th:href="@{/blog/{id}(id=${article.id})}"
-               th:text="${article.title}">
-            </a>
+            th:text="${article.title}"></a>
         </h5>
 
         <p th:text="${#strings.abbreviate(article.content, 120)}"></p>
 
+        <div class="mt-2">
+            <a th:href="@{/blog/edit/{id}(id=${article.id})}"
+            class="btn btn-sm btn-outline-primary">
+                Editar
+            </a>
+
+            <a th:href="@{/blog/delete/{id}(id=${article.id})}"
+            class="btn btn-sm btn-outline-danger ms-2"
+            onclick="return confirm('¿Seguro que deseas borrar este artículo?')">
+                Borrar
+            </a>
+        </div>
     </div>
+
 </div>
 
 </section>
