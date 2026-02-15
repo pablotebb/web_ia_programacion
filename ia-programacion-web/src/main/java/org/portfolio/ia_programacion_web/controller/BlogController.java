@@ -5,14 +5,12 @@ import org.portfolio.ia_programacion_web.repository.ArticleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/blog")
 public class BlogController {
 
     private final ArticleRepository articleRepository;
@@ -21,13 +19,15 @@ public class BlogController {
         this.articleRepository = articleRepository;
     }
 
-    @GetMapping("/blog")
+    // LISTAR ARTÍCULOS
+    @GetMapping
     public String blog(Model model) {
         model.addAttribute("articles", articleRepository.findAll());
         return "blog";
     }
 
-    @GetMapping("/blog/{id}")
+    // VER DETALLE
+    @GetMapping("/{id}")
     public String articleDetail(@PathVariable Long id, Model model) {
 
         Article article = articleRepository.findById(id)
@@ -37,19 +37,28 @@ public class BlogController {
         return "article-detail";
     }
 
-    @GetMapping("/blog/new")
+    // FORMULARIO NUEVO
+    @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("article", new Article());
         return "article-form";
     }
 
-    @PostMapping("/blog")
-    public String createArticle(@ModelAttribute Article article) {
+    // GUARDAR (CREATE)
+    @PostMapping
+    public String saveArticle(@Valid @ModelAttribute Article article,
+                              BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "article-form";
+        }
+
         articleRepository.save(article);
         return "redirect:/blog";
     }
 
-    @GetMapping("/blog/edit/{id}")
+    // FORMULARIO EDITAR
+    @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
 
         Article article = articleRepository.findById(id)
@@ -59,7 +68,8 @@ public class BlogController {
         return "article-form";
     }
 
-    @PostMapping("/blog/update/{id}")
+    // ACTUALIZAR
+    @PostMapping("/update/{id}")
     public String updateArticle(@PathVariable Long id,
                                 @Valid @ModelAttribute Article article,
                                 BindingResult result) {
@@ -74,27 +84,10 @@ public class BlogController {
         return "redirect:/blog";
     }
 
-
-    @GetMapping("/blog/delete/{id}")
+    // ELIMINAR
+    @GetMapping("/delete/{id}")
     public String deleteArticle(@PathVariable Long id) {
         articleRepository.deleteById(id);
         return "redirect:/blog";
     }
-
-    @PostMapping("/blog")
-    public String saveArticle(@Valid @ModelAttribute Article article,
-                            BindingResult result,
-                            Model model) {
-
-        if (result.hasErrors()) {
-            return "article-form";
-        }
-
-        articleRepository.save(article);
-        return "redirect:/blog";
-    }
-
-
-
-
 }
