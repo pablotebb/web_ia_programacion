@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="layout :: layout">
-<body>
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:replace="~{layout :: layout}">
+
     
 <section th:fragment="content">
 <h2 class="section-title">Blog de IA y Programación</h2>
 
-<div class="mb-4 text-end">
-    <a href="/blog/new" class="btn btn-success">
-        + Nuevo artículo
+<div class="mb-3 text-end">
+
+    <a sec:authorize="hasRole('ADMIN')"
+       th:href="@{/blog/new}"
+       class="btn btn-success">
+        Nuevo artículo
     </a>
+
+    <form th:action="@{/logout}" method="post" style="display: inline;">
+        <button type="submit" class="btn btn-outline-secondary ms-2">
+            Logout
+        </button>
+    </form>
+
+    <a sec:authorize="!isAuthenticated()"
+       th:href="@{/login}"
+       class="btn btn-outline-primary ms-2">
+        Login
+    </a>
+
 </div>
 
 
 <div class="list-group">
-
     <div class="list-group-item mb-3"
-        th:each="article : ${articles}">
+         th:each="article : ${articles}">
 
         <h5>
             <a th:href="@{/blog/{id}(id=${article.id})}"
-            th:text="${article.title}"></a>
+               th:text="${article.title}"></a>
         </h5>
 
         <p th:text="${#strings.abbreviate(article.content, 120)}"></p>
 
         <div class="mt-2">
             <a th:href="@{/blog/edit/{id}(id=${article.id})}"
-            class="btn btn-sm btn-outline-primary">
+               class="btn btn-sm btn-outline-primary">
                 Editar
             </a>
 
             <a th:href="@{/blog/delete/{id}(id=${article.id})}"
-            class="btn btn-sm btn-outline-danger ms-2"
-            onclick="return confirm('¿Seguro que deseas borrar este artículo?')">
+               class="btn btn-sm btn-outline-danger ms-2">
                 Borrar
             </a>
         </div>
     </div>
-
 </div>
+
+
+
 
 </section>
 
-</body>
+
 </html>

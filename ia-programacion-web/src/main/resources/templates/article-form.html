@@ -7,9 +7,9 @@
     <div class="container">
         <h2 th:text="${article.id} != null ? 'Editar Artículo' : 'Nuevo Artículo'"></h2>
 
-        <form th:action="@{/blog}" 
-              th:object="${article}" 
-              method="post">
+        <form th:action="${article.id} != null ? @{/blog/update/{id}(id=${article.id})} : @{/blog}" 
+      th:object="${article}" 
+      method="post">
 
             <!-- TÍTULO -->
             <div class="mb-3">

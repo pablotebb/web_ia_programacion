@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout}">
+
+<section th:fragment="content">
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+
+        <h3 class="mb-4 text-center">Acceso Administrador</h3>
+
+        <form th:action="@{/login}" method="post">
+
+            <div class="mb-3">
+                <input type="text"
+                       name="username"
+                       class="form-control"
+                       placeholder="Usuario"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Contraseña"
+                       required>
+            </div>
+
+            <button class="btn btn-primary w-100">
+                Entrar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+</section>
+</html>
