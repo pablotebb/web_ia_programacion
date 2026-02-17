@@ -4,6 +4,7 @@ body {
     flex-direction: column; /* Dirección vertical */
     min-height: 100vh;    /* Mínimo 100% de la altura de la ventana */
     margin: 0;            /* Elimina márgenes por defecto */
+    background-color: #f5f7fa;
 }
 
 /* Hace que el contenido principal ocupe el espacio restante */
@@ -55,4 +56,21 @@ footer {
 
 .card h5 {
     font-weight: 600;
+}
+
+.bg-ai {
+    background-color: #1f2933;
+}
+
+h1, h2, h3 {
+    color: #1f2933;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
 }
