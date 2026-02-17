@@ -5,7 +5,11 @@ import org.portfolio.ia_programacion_web.repository.ArticleRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 
@@ -19,32 +23,26 @@ public class BlogController {
         this.articleRepository = articleRepository;
     }
 
-    // LISTAR ARTÍCULOS
     @GetMapping
     public String blog(Model model) {
         model.addAttribute("articles", articleRepository.findAll());
         return "blog";
     }
 
-    // VER DETALLE
     @GetMapping("/{id}")
     public String articleDetail(@PathVariable Long id, Model model) {
-
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Artículo no encontrado"));
-
         model.addAttribute("article", article);
         return "article-detail";
     }
 
-    // FORMULARIO NUEVO
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("article", new Article());
         return "article-form";
     }
 
-    // GUARDAR (CREATE)
     @PostMapping
     public String saveArticle(@Valid @ModelAttribute Article article,
                               BindingResult result) {
@@ -57,7 +55,6 @@ public class BlogController {
         return "redirect:/blog";
     }
 
-    // FORMULARIO EDITAR
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
 
@@ -84,10 +81,10 @@ public class BlogController {
         return "redirect:/blog";
     }
 
-    // ELIMINAR
     @GetMapping("/delete/{id}")
     public String deleteArticle(@PathVariable Long id) {
         articleRepository.deleteById(id);
         return "redirect:/blog";
     }
 }
+
