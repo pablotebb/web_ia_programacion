@@ -1,14 +1,24 @@
-# Imagen base con Java 21
-FROM eclipse-temurin:21-jdk-alpine
+# ---------- ETAPA 1: Build ----------
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Directorio de trabajo
 WORKDIR /app
 
-# Copiamos el jar generado
-COPY target/*.jar app.jar
+# Copiamos pom y código
+COPY pom.xml .
+COPY src ./src
 
-# Exponemos el puerto que Render necesita
+# Compilamos el proyecto
+RUN mvn clean package -DskipTests
+
+
+# ---------- ETAPA 2: Runtime ----------
+FROM eclipse-temurin:21-jdk-alpine
+
+WORKDIR /app
+
+# Copiamos el jar generado desde la etapa anterior
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Ejecutamos la aplicación
 ENTRYPOINT ["java","-jar","app.jar"]
