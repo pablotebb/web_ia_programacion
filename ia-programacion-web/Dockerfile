@@ -20,7 +20,7 @@ WORKDIR /app
 
 # 3. Copiamos el jar generado. 
 # Importante: Asegúrate de que el nombre del JAR coincide con lo que genera tu pom.xml
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/ia-programacion-web/target/*.jar app.jar
 
 # Render suele usar el puerto que le indiques, pero por defecto Spring usa 8080
 EXPOSE 8080
